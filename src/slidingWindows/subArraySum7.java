@@ -23,7 +23,12 @@ public class subArraySum7 {
 
             // If we have found a subarray with the desired sum, add it to solutions
             if (currentSum == sumSize) {
-                solutions.add(Arrays.copyOfRange(inputArr, startIndex, index + 1));
+                // Print the subarray or perform any processing you need
+                System.out.print("Subarray with sum " + sumSize + ": ");
+                for (int i = startIndex; i <= index; i++) {
+                    System.out.print(inputArr[i] + " ");
+                }
+                System.out.println();
             }
         }
         return solutions;
@@ -32,11 +37,7 @@ public class subArraySum7 {
     public static void main (String[]args){
         int[] inputArr = {2, 3, 4, 5, 2};
         int subarraySize = 7;
-        ArrayList<int[]> result = getMaxSubarray(inputArr, subarraySize);
-        System.out.println("Max subarrays with sum " + subarraySize + ":");
-        for (int[] subarray : result) {
-            System.out.println(Arrays.toString(subarray));
-        }
+        getMaxSubarray(inputArr, subarraySize);
     }
 }
 
