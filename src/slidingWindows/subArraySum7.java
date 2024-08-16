@@ -1,35 +1,42 @@
 package slidingWindows;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class subArraySum7 {
-    public static int[] getMaxSubarray(int[] inputArr, int sumSize) {
+    public static ArrayList<int[]> getMaxSubarray(int[] inputArr, int sumSize) {
         int currentSum = 0;
-        int StartIndex = 0;
-        int index = 0;
+        int startIndex = 0;
+        ArrayList<int[]> solutions = new ArrayList<>();
+
         // Iterate entire array from left to right
-        for (index = 0; index < inputArr.length; index++) {
+        for (int index = 0; index < inputArr.length; index++) {
             // Increase the window size by one from the right
             currentSum += inputArr[index];
 
-            if (currentSum == sumSize) {
-                return Arrays.copyOfRange(inputArr, StartIndex, index);
-
-            } else if (currentSum > sumSize) {
-                // We are over the max window size so remove one element from the left
-                StartIndex++;
-                currentSum -= inputArr[index - StartIndex];
+            // Adjust the start index while the current sum is greater than sumSize
+            while (currentSum > sumSize && startIndex <= index) {
+                currentSum -= inputArr[startIndex];
+                startIndex++;
             }
 
+            // If we have found a subarray with the desired sum, add it to solutions
+            if (currentSum == sumSize) {
+                solutions.add(Arrays.copyOfRange(inputArr, startIndex, index + 1));
+            }
         }
-        return Arrays.copyOfRange(inputArr, StartIndex, index);
+        return solutions;
     }
+
     public static void main (String[]args){
         int[] inputArr = {2, 3, 4, 5, 2};
         int subarraySize = 7;
-        int[] result = getMaxSubarray(inputArr, subarraySize);
-
-        System.out.println("Max subarray: " + Arrays.toString(result));
+        ArrayList<int[]> result = getMaxSubarray(inputArr, subarraySize);
+        System.out.println("Max subarrays with sum " + subarraySize + ":");
+        for (int[] subarray : result) {
+            System.out.println(Arrays.toString(subarray));
+        }
     }
 }
 
