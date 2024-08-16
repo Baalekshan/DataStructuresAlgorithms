@@ -16,21 +16,16 @@ public class maxSubSequenceByFlipping {
             if (inputArr[right] == 0) {
                 zeroCount++;
             }
-
-            // If zeroCount exceeds the number of flips, move the left pointer
             while (zeroCount > flip) {
                 if (inputArr[left] == 0) {
                     zeroCount--;
                 }
                 left++;
             }
-
-            // Update the maximum length and starting index
             if (right - left + 1 > maxLength) {
                 maxLength = right - left + 1;
                 startIndex = left;
             }
-
             right++;
         }
 
